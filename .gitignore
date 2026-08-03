@@ -1,0 +1,40 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+export_presets.cfg
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# System/tool-specific ignores
+.DS_Store
+Thumbs.db
+
+# Build/export output
+/build/
+/exports/
+
+# Environment / secrets
+.env
+.env.local
+*.env
+
+# Editor
+.vscode/
+.idea/
+.claude/
+
+# Backend (Python/FastAPI)
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.db
+backend/.pytest_cache/
+
+# Documentos de diseño / referencia (privados, no se suben al repo)
+*.xlsx
+*.xls
+Prototipo*.png
