@@ -37,4 +37,4 @@ backend/.pytest_cache/
 # Documentos de diseño / referencia (privados, no se suben al repo)
 *.xlsx
 *.xls
-Prototipo*.png
+/Prototipo*.png

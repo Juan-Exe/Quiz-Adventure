@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cuigvw4wi6ad8"]
+
+[ext_resource type="Script" uid="uid://exocabf73p85" path="res://scripts/debug/api_test.gd" id="1_apitest"]
+
+[node name="ApiTest" type="Control" unique_id=1224983323]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_apitest")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1984470747]
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=40536537]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -1.0
+offset_right = 6.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1706394583]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Titulo" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1770050865]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Prueba de conexion con el backend"
+horizontal_alignment = 1
+
+[node name="BotonPedirPregunta" type="Button" parent="CenterContainer/VBoxContainer" unique_id=59863590]
+layout_mode = 2
+text = "Pedir pregunta al backend"
+
+[node name="ResultadoLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=2087652009]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+text = "Presiona el boton para probar"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BotonPedirPregunta" to="." method="_on_pedir_pregunta_pressed"]

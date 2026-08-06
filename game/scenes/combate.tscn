@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dcombate001"]
+
+[ext_resource type="Script" uid="uid://chhlksgmtq5ce" path="res://scripts/combate.gd" id="1_combate"]
+[ext_resource type="Texture2D" uid="uid://c0pak8wxxgvn6" path="res://assets/reference/prototipo_referencia.png" id="2_referencia"]
+[ext_resource type="Theme" path="res://assets/fonts/theme_principal.tres" id="3_theme"]
+
+[node name="Combate" type="Control" unique_id=341390957]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+script = ExtResource("1_combate")
+
+[node name="ReferenciaPrototipo" type="TextureRect" parent="." unique_id=726483167]
+visible = false
+modulate = Color(1, 1, 1, 0.35)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_referencia")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Enunciado" type="Label" parent="." unique_id=869484758]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 148.0
+offset_right = 1669.0
+offset_bottom = 381.0
+theme_override_font_sizes/font_size = 62
+text = "ENUNCIADO PREGUNTA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Respuestas" type="GridContainer" parent="." unique_id=704900027]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 775.0
+offset_right = 1606.0
+offset_bottom = 954.0
+theme_override_constants/h_separation = 34
+theme_override_constants/v_separation = 32
+columns = 2
+
+[node name="Respuesta1" type="Button" parent="Respuestas" unique_id=2070264750]
+custom_minimum_size = Vector2(621, 73)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "RESPUESTA 1"
+
+[node name="Respuesta2" type="Button" parent="Respuestas" unique_id=2054156792]
+custom_minimum_size = Vector2(621, 73)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "RESPUESTA 2"
+
+[node name="Respuesta3" type="Button" parent="Respuestas" unique_id=549877357]
+custom_minimum_size = Vector2(621, 73)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "RESPUESTA 3"
+
+[node name="Respuesta4" type="Button" parent="Respuestas" unique_id=1601084832]
+custom_minimum_size = Vector2(621, 73)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "RESPUESTA 4"
