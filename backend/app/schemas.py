@@ -41,3 +41,12 @@ class PreguntaParaJugar(BaseModel):
     dificultad: Dificultad
     enunciado: str
     respuestas: dict[Opcion, str]
+
+
+class RespuestaIntento(BaseModel):
+    opcion: Opcion
+
+
+class ResultadoIntento(BaseModel):
+    correcta: bool
+    opcion_correcta: Opcion

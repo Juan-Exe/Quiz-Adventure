@@ -2,7 +2,15 @@
 
 [ext_resource type="Script" uid="uid://chhlksgmtq5ce" path="res://scripts/combate.gd" id="1_combate"]
 [ext_resource type="Texture2D" uid="uid://c0pak8wxxgvn6" path="res://assets/reference/prototipo_referencia.png" id="2_referencia"]
-[ext_resource type="Theme" path="res://assets/fonts/theme_principal.tres" id="3_theme"]
+[ext_resource type="Theme" uid="uid://byf7fnac1sayy" path="res://assets/fonts/theme_principal.tres" id="3_theme"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_enunciado"]
+bg_color = Color(0.2235, 0.2784, 0.2784, 0.8)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2235, 0.2784, 0.2784, 1)
 
 [node name="Combate" type="Control" unique_id=341390957]
 layout_mode = 3
@@ -14,8 +22,9 @@ grow_vertical = 2
 theme = ExtResource("3_theme")
 script = ExtResource("1_combate")
 
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1102258889]
+
 [node name="ReferenciaPrototipo" type="TextureRect" parent="." unique_id=726483167]
-visible = false
 modulate = Color(1, 1, 1, 0.35)
 layout_mode = 1
 anchors_preset = 15
@@ -35,8 +44,9 @@ layout_mode = 0
 offset_left = 254.0
 offset_top = 148.0
 offset_right = 1669.0
-offset_bottom = 381.0
+offset_bottom = 384.0
 theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxFlat_enunciado")
 text = "ENUNCIADO PREGUNTA"
 horizontal_alignment = 1
 vertical_alignment = 1

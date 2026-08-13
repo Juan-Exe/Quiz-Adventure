@@ -99,6 +99,20 @@ def pregunta_aleatoria(
     )
 
 
+@router.post("/{pregunta_id}/responder", response_model=schemas.ResultadoIntento)
+def responder_pregunta(
+    pregunta_id: int, intento: schemas.RespuestaIntento, db: Session = Depends(get_db)
+):
+    pregunta = db.get(models.Pregunta, pregunta_id)
+    if not pregunta:
+        raise HTTPException(status_code=404, detail="Pregunta no encontrada")
+
+    return schemas.ResultadoIntento(
+        correcta=intento.opcion == pregunta.correcta,
+        opcion_correcta=pregunta.correcta,
+    )
+
+
 @router.get("/temas/{dificultad}")
 def temas_por_dificultad(dificultad: schemas.Dificultad, db: Session = Depends(get_db)):
     temas = (
