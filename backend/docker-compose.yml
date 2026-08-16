@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: quiz_adventure_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: quiz_admin
+      POSTGRES_PASSWORD: quiz_adventure_2026
+      POSTGRES_DB: quiz_adventure
+    ports:
+      - "5432:5432"
+    volumes:
+      - quiz_adventure_pgdata:/var/lib/postgresql/data
+
+volumes:
+  quiz_adventure_pgdata:

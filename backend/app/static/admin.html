@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Adventure - Gestion de Preguntas</title>
+<style>
+  :root {
+    --bg: #121d22;
+    --panel: #1a2b30;
+    --borde: #25353b;
+    --texto: #e8f0f2;
+    --texto-tenue: #9db0b5;
+    --acento: #3f8f6f;
+    --acento-hover: #4fae89;
+    --peligro: #b23a3a;
+    --peligro-hover: #d24b4b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--texto);
+    padding: 32px;
+  }
+  h1 { margin-top: 0; font-size: 24px; }
+  .layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: var(--texto-tenue);
+    margin: 12px 0 4px;
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--borde);
+    background: #0f1a1e;
+    color: var(--texto);
+    font-size: 14px;
+  }
+  textarea { resize: vertical; min-height: 60px; }
+  .fila-respuestas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .acciones-form { display: flex; gap: 10px; margin-top: 18px; }
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .btn-primario { background: var(--acento); color: white; }
+  .btn-primario:hover { background: var(--acento-hover); }
+  .btn-secundario { background: #2a3d43; color: var(--texto); }
+  .btn-secundario:hover { background: #35505a; }
+  .btn-peligro { background: var(--peligro); color: white; }
+  .btn-peligro:hover { background: var(--peligro-hover); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--borde); vertical-align: top; }
+  th { color: var(--texto-tenue); font-weight: 600; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .badge-facil { background: #234a2f; color: #7fdb98; }
+  .badge-intermedio { background: #4a3f23; color: #e0c26f; }
+  .badge-dificil { background: #4a2323; color: #e07f7f; }
+  .badge-master { background: #2e2a4a; color: #a89bf0; }
+  .fila-acciones { display: flex; gap: 6px; }
+  .fila-acciones button { padding: 4px 10px; font-size: 12px; }
+  #estado {
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: none;
+  }
+  #estado.ok { display: block; background: #1c3a2a; color: #7fdb98; }
+  #estado.error { display: block; background: #3a1c1c; color: #e07f7f; }
+  .filtros { display: flex; gap: 10px; margin-bottom: 14px; }
+  .filtros select, .filtros input { width: auto; }
+  .correcta-marca { color: #7fdb98; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<h1>Quiz Adventure &mdash; Gestion de Preguntas</h1>
+<div id="estado"></div>
+
+<div class="layout">
+  <div class="panel">
+    <h2 id="titulo-form" style="margin-top:0;font-size:16px;">Nueva pregunta</h2>
+    <form id="form-pregunta">
+      <input type="hidden" id="pregunta-id">
+
+      <label>Tema</label>
+      <input type="text" id="tema" required placeholder="ej: musica">
+
+      <label>Dificultad</label>
+      <select id="dificultad" required>
+        <option value="facil">Facil</option>
+        <option value="intermedio">Intermedio</option>
+        <option value="dificil">Dificil</option>
+        <option value="master">Master</option>
+      </select>
+
+      <label>Enunciado</label>
+      <textarea id="enunciado" required></textarea>
+
+      <div class="fila-respuestas">
+        <div>
+          <label>Respuesta A</label>
+          <input type="text" id="respuesta_a" required>
+        </div>
+        <div>
+          <label>Respuesta B</label>
+          <input type="text" id="respuesta_b" required>
+        </div>
+        <div>
+          <label>Respuesta C</label>
+          <input type="text" id="respuesta_c" required>
+        </div>
+        <div>
+          <label>Respuesta D</label>
+          <input type="text" id="respuesta_d" required>
+        </div>
+      </div>
+
+      <label>Respuesta correcta</label>
+      <select id="correcta" required>
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+        <option value="d">D</option>
+      </select>
+
+      <div class="acciones-form">
+        <button type="submit" class="btn-primario" id="btn-guardar">Guardar</button>
+        <button type="button" class="btn-secundario" id="btn-cancelar" style="display:none;">Cancelar edicion</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <div class="filtros">
+      <select id="filtro-dificultad">
+        <option value="">Todas las dificultades</option>
+        <option value="facil">Facil</option>
+        <option value="intermedio">Intermedio</option>
+        <option value="dificil">Dificil</option>
+        <option value="master">Master</option>
+      </select>
+      <input type="text" id="filtro-tema" placeholder="Filtrar por tema...">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tema</th>
+          <th>Dificultad</th>
+          <th>Enunciado</th>
+          <th>Respuestas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-preguntas"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const API = "";
+
+let preguntas = [];
+
+function mostrarEstado(mensaje, tipo) {
+  const el = document.getElementById("estado");
+  el.textContent = mensaje;
+  el.className = tipo;
+  setTimeout(() => { el.className = ""; }, 3000);
+}
+
+async function cargarPreguntas() {
+  try {
+    const res = await fetch(`${API}/preguntas`);
+    if (!res.ok) throw new Error("No se pudo cargar la lista");
+    preguntas = await res.json();
+    renderizarTabla();
+  } catch (err) {
+    mostrarEstado("Error al cargar preguntas: " + err.message, "error");
+  }
+}
+
+function renderizarTabla() {
+  const filtroDif = document.getElementById("filtro-dificultad").value;
+  const filtroTema = document.getElementById("filtro-tema").value.toLowerCase();
+
+  const filtradas = preguntas.filter(p => {
+    if (filtroDif && p.dificultad !== filtroDif) return false;
+    if (filtroTema && !p.tema.toLowerCase().includes(filtroTema)) return false;
+    return true;
+  });
+
+  const tbody = document.getElementById("tabla-preguntas");
+  tbody.innerHTML = "";
+
+  if (filtradas.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="color:#9db0b5;">Sin resultados</td></tr>';
+    return;
+  }
+
+  for (const p of filtradas) {
+    const tr = document.createElement("tr");
+    const opciones = ["a", "b", "c", "d"];
+    const respuestasHtml = opciones.map(op => {
+      const texto = p["respuesta_" + op];
+      const esCorrecta = p.correcta === op;
+      return `<div>${op.toUpperCase()}) ${esCorrecta ? '<span class="correcta-marca">' + texto + ' &check;</span>' : texto}</div>`;
+    }).join("");
+
+    tr.innerHTML = `
+      <td>${p.id}</td>
+      <td>${escapeHtml(p.tema)}</td>
+      <td><span class="badge badge-${p.dificultad}">${p.dificultad}</span></td>
+      <td>${escapeHtml(p.enunciado)}</td>
+      <td>${respuestasHtml}</td>
+      <td>
+        <div class="fila-acciones">
+          <button class="btn-secundario" onclick="editarPregunta(${p.id})">Editar</button>
+          <button class="btn-peligro" onclick="borrarPregunta(${p.id})">Borrar</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+function escapeHtml(texto) {
+  const div = document.createElement("div");
+  div.textContent = texto;
+  return div.innerHTML;
+}
+
+function editarPregunta(id) {
+  const p = preguntas.find(x => x.id === id);
+  if (!p) return;
+
+  document.getElementById("pregunta-id").value = p.id;
+  document.getElementById("tema").value = p.tema;
+  document.getElementById("dificultad").value = p.dificultad;
+  document.getElementById("enunciado").value = p.enunciado;
+  document.getElementById("respuesta_a").value = p.respuesta_a;
+  document.getElementById("respuesta_b").value = p.respuesta_b;
+  document.getElementById("respuesta_c").value = p.respuesta_c;
+  document.getElementById("respuesta_d").value = p.respuesta_d;
+  document.getElementById("correcta").value = p.correcta;
+
+  document.getElementById("titulo-form").textContent = "Editar pregunta #" + p.id;
+  document.getElementById("btn-guardar").textContent = "Guardar cambios";
+  document.getElementById("btn-cancelar").style.display = "inline-block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cancelarEdicion() {
+  document.getElementById("form-pregunta").reset();
+  document.getElementById("pregunta-id").value = "";
+  document.getElementById("titulo-form").textContent = "Nueva pregunta";
+  document.getElementById("btn-guardar").textContent = "Guardar";
+  document.getElementById("btn-cancelar").style.display = "none";
+}
+
+async function borrarPregunta(id) {
+  if (!confirm("¿Borrar la pregunta #" + id + "? Esta accion no se puede deshacer.")) return;
+  try {
+    const res = await fetch(`${API}/preguntas/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("El servidor rechazo el borrado");
+    mostrarEstado("Pregunta borrada correctamente", "ok");
+    await cargarPreguntas();
+  } catch (err) {
+    mostrarEstado("Error al borrar: " + err.message, "error");
+  }
+}
+
+document.getElementById("form-pregunta").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById("pregunta-id").value;
+  const cuerpo = {
+    tema: document.getElementById("tema").value.trim(),
+    dificultad: document.getElementById("dificultad").value,
+    enunciado: document.getElementById("enunciado").value.trim(),
+    respuesta_a: document.getElementById("respuesta_a").value.trim(),
+    respuesta_b: document.getElementById("respuesta_b").value.trim(),
+    respuesta_c: document.getElementById("respuesta_c").value.trim(),
+    respuesta_d: document.getElementById("respuesta_d").value.trim(),
+    correcta: document.getElementById("correcta").value,
+  };
+
+  const esEdicion = id !== "";
+  const url = esEdicion ? `${API}/preguntas/${id}` : `${API}/preguntas`;
+  const metodo = esEdicion ? "PUT" : "POST";
+
+  try {
+    const res = await fetch(url, {
+      method: metodo,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cuerpo),
+    });
+    if (!res.ok) {
+      const detalle = await res.json().catch(() => null);
+      throw new Error(detalle?.detail || "El servidor rechazo la solicitud");
+    }
+    mostrarEstado(esEdicion ? "Pregunta actualizada" : "Pregunta creada", "ok");
+    cancelarEdicion();
+    await cargarPreguntas();
+  } catch (err) {
+    mostrarEstado("Error al guardar: " + err.message, "error");
+  }
+});
+
+document.getElementById("btn-cancelar").addEventListener("click", cancelarEdicion);
+document.getElementById("filtro-dificultad").addEventListener("change", renderizarTabla);
+document.getElementById("filtro-tema").addEventListener("input", renderizarTabla);
+
+cargarPreguntas();
+</script>
+</body>
+</html>
