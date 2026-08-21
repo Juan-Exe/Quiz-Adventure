@@ -4,6 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://c0pak8wxxgvn6" path="res://assets/reference/prototipo_referencia.png" id="2_referencia"]
 [ext_resource type="Theme" uid="uid://byf7fnac1sayy" path="res://assets/fonts/theme_principal.tres" id="3_theme"]
 [ext_resource type="Texture2D" uid="uid://boeoxakmvi8uo" path="res://assets/fondos/fondo_combate.png" id="4_fondo"]
+[ext_resource type="Texture2D" uid="uid://cmnb0c6ulv14e" path="res://assets/sprites/heroe/heroe_idle.png" id="5_heroe"]
+[ext_resource type="Texture2D" uid="uid://2m8uuiaxod6w" path="res://assets/sprites/enemigo/enemigo_idle.png" id="6_enemigo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/heroe/heroe_ataque.png" id="7_heroe_ataque"]
+[ext_resource type="Texture2D" path="res://assets/sprites/heroe/heroe_herido.png" id="8_heroe_herido"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemigo/enemigo_ataque.png" id="9_enemigo_ataque"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemigo/enemigo_herido.png" id="10_enemigo_herido"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_enunciado"]
 bg_color = Color(0.2235, 0.2784, 0.2784, 0.8)
@@ -65,6 +71,28 @@ text = "ENUNCIADO PREGUNTA"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="Heroe" type="TextureRect" parent="." unique_id=630266865]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 340.0
+offset_right = 698.0
+offset_bottom = 904.0
+mouse_filter = 2
+texture = ExtResource("5_heroe")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Enemigo" type="TextureRect" parent="." unique_id=1755295952]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 252.0
+offset_right = 1888.0
+offset_bottom = 861.0
+mouse_filter = 2
+texture = ExtResource("6_enemigo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Respuestas" type="GridContainer" parent="." unique_id=704900027]
 layout_mode = 0

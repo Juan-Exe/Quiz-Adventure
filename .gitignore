@@ -38,3 +38,9 @@ backend/.pytest_cache/
 *.xlsx
 *.xls
 /Prototipo*.png
+/prototipo*.png
+/Ataque.png
+/Sprite*.png
+/enemigo atacando.png
+/Enemigo herido.png
+/herido.png
